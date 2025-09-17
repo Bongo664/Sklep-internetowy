@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Wrz 17, 2025 at 11:13 AM
+-- Generation Time: Wrz 17, 2025 at 02:35 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -218,6 +218,45 @@ CREATE TABLE `product_reviews` (
 -- --------------------------------------------------------
 
 --
+-- Struktura tabeli dla tabeli `product_specs`
+--
+
+CREATE TABLE `product_specs` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `product_id` int(10) UNSIGNED NOT NULL,
+  `spec_name` varchar(150) NOT NULL,
+  `spec_value` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `product_specs`
+--
+
+INSERT INTO `product_specs` (`id`, `product_id`, `spec_name`, `spec_value`) VALUES
+(1, 1, 'Procesor', 'Intel Core i3-1115G4'),
+(2, 1, 'RAM', '8 GB DDR4'),
+(3, 1, 'Dysk', '256 GB SSD'),
+(4, 1, 'Ekran', '15.6\" Full HD'),
+(5, 1, 'Waga', '1.65 kg'),
+(6, 1, 'Bateria', '36 Wh, do 6 godzin pracy'),
+(7, 2, 'Wyświetlacz', '6.4\" AMOLED'),
+(8, 2, 'RAM', '8 GB'),
+(9, 2, 'Pamięć wewnętrzna', '128 GB'),
+(10, 2, 'Bateria', '5000 mAh'),
+(11, 2, 'Aparat tylny', '50 MP + 5 MP + 5 MP'),
+(12, 2, 'Aparat przedni', '32 MP'),
+(13, 3, 'System', 'iOS'),
+(14, 3, 'Pamięć', '128 GB'),
+(15, 3, 'Wyświetlacz', '6.1\" OLED'),
+(16, 3, 'Aparat tylny', '48 MP + 12 MP'),
+(17, 3, 'Aparat przedni', '12 MP'),
+(18, 3, 'Bateria', '3279 mAh'),
+(19, 3, 'Chip', 'A17 Bionic'),
+(20, 3, 'Waga', '207 g');
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabeli dla tabeli `shopping_carts`
 --
 
@@ -322,6 +361,13 @@ ALTER TABLE `product_reviews`
   ADD KEY `customer_id` (`customer_id`);
 
 --
+-- Indeksy dla tabeli `product_specs`
+--
+ALTER TABLE `product_specs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
 -- Indeksy dla tabeli `shopping_carts`
 --
 ALTER TABLE `shopping_carts`
@@ -395,6 +441,12 @@ ALTER TABLE `product_reviews`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `product_specs`
+--
+ALTER TABLE `product_specs`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
 -- AUTO_INCREMENT for table `shopping_carts`
 --
 ALTER TABLE `shopping_carts`
@@ -461,6 +513,12 @@ ALTER TABLE `product_images`
 ALTER TABLE `product_reviews`
   ADD CONSTRAINT `product_reviews_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `product_reviews_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `product_specs`
+--
+ALTER TABLE `product_specs`
+  ADD CONSTRAINT `product_specs_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `shopping_carts`
