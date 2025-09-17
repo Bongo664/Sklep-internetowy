@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Wrz 16, 2025 at 02:25 PM
+-- Generation Time: Wrz 17, 2025 at 11:13 AM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -72,7 +72,7 @@ CREATE TABLE `inventory` (
 INSERT INTO `inventory` (`product_id`, `quantity_in_stock`, `quantity_reserved`) VALUES
 (1, 10, 0),
 (2, 25, 0),
-(3, 5, 0);
+(3, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -150,9 +150,9 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `sku`, `title`, `manufacturer_id`, `category_id`, `short_description`, `description`, `price`, `currency`, `is_active`, `created_at`, `updated_at`) VALUES
-(1, 'LAP-001', 'Lenovo IdeaPad 3 15\"', 3, 1, '15.6\", Intel Core, 8GB RAM, 256GB SSD', NULL, 2199.00, 'PLN', 1, '2025-09-16 09:15:03', NULL),
-(2, 'PHN-001', 'Samsung Galaxy A54', 2, 2, '6.4\" AMOLED, 8GB RAM, 128GB', NULL, 1799.00, 'PLN', 1, '2025-09-16 09:15:03', NULL),
-(3, 'PHN-002', 'Apple iPhone 14 128GB', 1, 2, '6.1\", iOS, 128GB', NULL, 3899.00, 'PLN', 1, '2025-09-16 09:15:03', NULL);
+(1, 'LAP-001', 'Lenovo IdeaPad 3 15\"', 3, 1, '15.6\", Intel Core, 8GB RAM, 256GB SSD', 'Lenovo IdeaPad 3 15\" — lekki i wydajny laptop do pracy i nauki. 15.6\" ekran, procesor Intel, 8 GB RAM i szybki 256 GB SSD. Solidna obudowa, dobre możliwości łączności i długi czas pracy na baterii.', 2199.00, 'PLN', 1, '2025-09-16 09:15:03', '2025-09-17 06:39:17'),
+(2, 'PHN-001', 'Samsung Galaxy A54', 2, 2, '6.4\" AMOLED, 8GB RAM, 128GB', 'Samsung Galaxy A54 — smartfon z jasnym 6.4\" ekranem AMOLED, płynnym interfejsem i wydajną baterią. 8 GB RAM i 128 GB pamięci wewnętrznej, dobry wybór na co dzień: zdjęcia, media i aplikacje.', 1799.00, 'PLN', 1, '2025-09-16 09:15:03', '2025-09-17 06:39:17'),
+(3, 'PHN-002', 'Apple iPhone 16 128GB', 1, 2, '6.1\", iOS, 128GB', 'Apple iPhone 14 128GB — kompaktowy smartfon z systemem iOS, 6.1\" ekranem, wydajnym procesorem i 128 GB pamięci. Doskonała jakość wykonania, aparat i integracja z ekosystemem Apple.', 3899.00, 'PLN', 1, '2025-09-16 09:15:03', '2025-09-17 06:39:17');
 
 -- --------------------------------------------------------
 
@@ -196,8 +196,8 @@ CREATE TABLE `product_images` (
 
 INSERT INTO `product_images` (`id`, `product_id`, `image_url`, `alt_text`, `sort_order`) VALUES
 (1, 1, '/img/products/lap-001-1.jpg', 'Lenovo IdeaPad 3 - front', 1),
-(2, 2, '/img/products/phn-001-1.jpg', 'Samsung Galaxy A54', 1),
-(3, 3, '/img/products/phn-002-1.jpg', 'Apple iPhone 14', 1);
+(2, 2, '/img/products/phn-001-1.jpg', 'Samsung Galaxy A54\r\n', 1),
+(3, 3, '/img/products/phn-002-1.jpg', 'Apple iPhone 16\r\n', 1);
 
 -- --------------------------------------------------------
 
