@@ -8,7 +8,8 @@ require_once __DIR__ . '/includes/db.php';
         <div class="hero-content">
             <div class="hero-text">
                 <h1 class="hero-title">Odkryj najlepsze produkty</h1>
-                <p class="hero-subtitle">Szeroki wybór wysokiej jakości produktów w najlepszych cenach. Znajdź wszystko czego potrzebujesz w jednym miejscu.</p>
+                <p class="hero-subtitle">Szeroki wybór wysokiej jakości produktów w najlepszych cenach. Znajdź wszystko
+                    czego potrzebujesz w jednym miejscu.</p>
                 <a href="/katalog" class="hero-button">Przeglądaj katalog</a>
             </div>
             <div class="hero-visual">
@@ -50,14 +51,14 @@ require_once __DIR__ . '/includes/db.php';
                 <a href="/katalog" class="see-all-button">
                     Zobacz wszystkie
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                        <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
                 </a>
             </div>
 
             <div class="product-grid">
-            <?php
-            $sql = "
+                <?php
+                $sql = "
             SELECT p.id, p.title, p.price, p.short_description, pi.image_url, i.quantity_in_stock
             FROM products p
             LEFT JOIN product_images pi ON p.id = pi.product_id AND pi.sort_order = 1
@@ -65,54 +66,54 @@ require_once __DIR__ . '/includes/db.php';
             ORDER BY p.created_at DESC
             LIMIT 6
             ";
-            $result = $conn->query($sql);
+                $result = $conn->query($sql);
 
-            if ($result && $result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $relativeImg = !empty($row['image_url']) ? 'assets/img/products/' . basename($row['image_url']) : null;
-                    $img = ($relativeImg && file_exists(__DIR__ . '/' . $relativeImg)) ? $relativeImg : 'assets/img/placeholder.svg';
+                if ($result && $result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $relativeImg = !empty($row['image_url']) ? 'assets/img/products/' . basename($row['image_url']) : null;
+                        $img = ($relativeImg && file_exists(__DIR__ . '/' . $relativeImg)) ? $relativeImg : 'assets/img/placeholder.svg';
 
-                    $quantity = isset($row['quantity_in_stock']) ? (int)$row['quantity_in_stock'] : 0;
-                    $imgStyle = ($quantity == 0) ? 'style="filter: grayscale(80%); opacity: 0.5;"' : '';
+                        $quantity = isset($row['quantity_in_stock']) ? (int) $row['quantity_in_stock'] : 0;
+                        $imgStyle = ($quantity == 0) ? 'style="filter: grayscale(80%); opacity: 0.5;"' : '';
 
-                    echo '<article class="product-card">';
-                    echo '<a href="product.php?id=' . $row['id'] . '" class="product-image-link">';
-                    echo '<div class="product-image-container">';
-                    echo '<img src="' . $img . '" alt="' . htmlspecialchars($row['title']) . '" class="product-image" ' . $imgStyle . '>';
-                    if ($quantity == 0) {
-                        echo '<div class="out-of-stock-badge">Brak w magazynie</div>';
-                    } elseif ($quantity <= 3) {
-                        echo '<div class="low-stock-badge">Ostatnie sztuki</div>';
-                    }
-                    echo '</div>';
-                    echo '</a>';
-                    echo '<div class="product-body">';
-                    echo '<h3 class="product-title">' . htmlspecialchars($row['title']) . '</h3>';
-                    echo '<p class="product-desc">' . htmlspecialchars($row['short_description']) . '</p>';
-                    echo '<div class="product-meta">';
-                    echo '<div class="price">' . number_format($row['price'], 2) . ' PLN</div>';
-                    if ($quantity > 0) {
-                        echo '<a class="cta-button" href="cart.php?action=add&id=' . $row['id'] . '">';
-                        echo '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">';
-                        echo '<circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>';
-                        echo '<path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>';
-                        echo '</svg>';
-                        echo 'Dodaj do koszyka';
+                        echo '<article class="product-card">';
+                        echo '<a href="product.php?id=' . $row['id'] . '" class="product-image-link">';
+                        echo '<div class="product-image-container">';
+                        echo '<img src="' . $img . '" alt="' . htmlspecialchars($row['title']) . '" class="product-image" ' . $imgStyle . '>';
+                        if ($quantity == 0) {
+                            echo '<div class="out-of-stock-badge">Brak w magazynie</div>';
+                        } elseif ($quantity <= 3) {
+                            echo '<div class="low-stock-badge">Ostatnie sztuki</div>';
+                        }
+                        echo '</div>';
                         echo '</a>';
-                    } else {
-                        echo '<button class="cta-button disabled" disabled>Brak w magazynie</button>';
+                        echo '<div class="product-body">';
+                        echo '<h3 class="product-title">' . htmlspecialchars($row['title']) . '</h3>';
+                        echo '<p class="product-desc">' . htmlspecialchars($row['short_description']) . '</p>';
+                        echo '<div class="product-meta">';
+                        echo '<div class="price">' . number_format($row['price'], 2) . ' PLN</div>';
+                        if ($quantity > 0) {
+                            echo '<a class="cta-button" href="cart.php?action=add&id=' . $row['id'] . '">';
+                            echo '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">';
+                            echo '<circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>';
+                            echo '<path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>';
+                            echo '</svg>';
+                            echo 'Dodaj do koszyka';
+                            echo '</a>';
+                        } else {
+                            echo '<button class="cta-button disabled" disabled>Brak w magazynie</button>';
+                        }
+                        echo '</div>';
+                        echo '</div>';
+                        echo '</article>';
                     }
+                } else {
+                    echo '<div class="no-products">';
+                    echo '<div class="no-products-icon">📦</div>';
+                    echo '<p>Brak produktów w bazie danych</p>';
                     echo '</div>';
-                    echo '</div>';
-                    echo '</article>';
                 }
-            } else {
-                echo '<div class="no-products">';
-                echo '<div class="no-products-icon">📦</div>';
-                echo '<p>Brak produktów w bazie danych</p>';
-                echo '</div>';
-            }
-            ?>
+                ?>
             </div>
         </div>
     </section>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Wrz 17, 2025 at 02:35 PM
+-- Generation Time: Wrz 18, 2025 at 02:41 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -36,6 +36,13 @@ CREATE TABLE `customers` (
   `is_admin` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`id`, `email`, `password_hash`, `full_name`, `phone`, `is_admin`, `created_at`) VALUES
+(1, 'aaa@aaa.pl', '$2y$10$yaGvNbcDZKHL8GjPcajfS.E.oK6bFbqQssA2qbJScbtBg897.ap/K', 'Patryk', '123123123', 0, '2025-09-18 11:15:37');
 
 -- --------------------------------------------------------
 
@@ -72,7 +79,8 @@ CREATE TABLE `inventory` (
 INSERT INTO `inventory` (`product_id`, `quantity_in_stock`, `quantity_reserved`) VALUES
 (1, 10, 0),
 (2, 25, 0),
-(3, 0, 0);
+(3, 0, 0),
+(4, 40, 0);
 
 -- --------------------------------------------------------
 
@@ -151,8 +159,9 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `sku`, `title`, `manufacturer_id`, `category_id`, `short_description`, `description`, `price`, `currency`, `is_active`, `created_at`, `updated_at`) VALUES
 (1, 'LAP-001', 'Lenovo IdeaPad 3 15\"', 3, 1, '15.6\", Intel Core, 8GB RAM, 256GB SSD', 'Lenovo IdeaPad 3 15\" — lekki i wydajny laptop do pracy i nauki. 15.6\" ekran, procesor Intel, 8 GB RAM i szybki 256 GB SSD. Solidna obudowa, dobre możliwości łączności i długi czas pracy na baterii.', 2199.00, 'PLN', 1, '2025-09-16 09:15:03', '2025-09-17 06:39:17'),
-(2, 'PHN-001', 'Samsung Galaxy A54', 2, 2, '6.4\" AMOLED, 8GB RAM, 128GB', 'Samsung Galaxy A54 — smartfon z jasnym 6.4\" ekranem AMOLED, płynnym interfejsem i wydajną baterią. 8 GB RAM i 128 GB pamięci wewnętrznej, dobry wybór na co dzień: zdjęcia, media i aplikacje.', 1799.00, 'PLN', 1, '2025-09-16 09:15:03', '2025-09-17 06:39:17'),
-(3, 'PHN-002', 'Apple iPhone 16 128GB', 1, 2, '6.1\", iOS, 128GB', 'Apple iPhone 14 128GB — kompaktowy smartfon z systemem iOS, 6.1\" ekranem, wydajnym procesorem i 128 GB pamięci. Doskonała jakość wykonania, aparat i integracja z ekosystemem Apple.', 3899.00, 'PLN', 1, '2025-09-16 09:15:03', '2025-09-17 06:39:17');
+(2, 'PHN-001', 'Samsung Galaxy A56', 2, 2, '6.7\" AMOLED, 8GB RAM, 128GB', 'Samsung Galaxy A56 — smartfon z jasnym 6.7\" ekranem AMOLED, płynnym interfejsem i wydajną baterią. 8 GB RAM i 128 GB pamięci wewnętrznej, dobry wybór na co dzień: zdjęcia, media i aplikacje.', 1799.00, 'PLN', 1, '2025-09-16 09:15:03', '2025-09-18 07:27:10'),
+(3, 'PHN-002', 'Apple iPhone 16 128GB', 1, 2, '6.1\", iOS, 128GB', 'Apple iPhone 14 128GB — kompaktowy smartfon z systemem iOS, 6.1\" ekranem, wydajnym procesorem i 128 GB pamięci. Doskonała jakość wykonania, aparat i integracja z ekosystemem Apple.', 3899.00, 'PLN', 1, '2025-09-16 09:15:03', '2025-09-17 06:39:17'),
+(4, 'USR-1D24EE80', 'qwerty', 3, 3, 'odihf', 'oi', 9999.00, 'PLN', 1, '2025-09-18 11:17:46', NULL);
 
 -- --------------------------------------------------------
 
@@ -197,7 +206,14 @@ CREATE TABLE `product_images` (
 INSERT INTO `product_images` (`id`, `product_id`, `image_url`, `alt_text`, `sort_order`) VALUES
 (1, 1, '/img/products/lap-001-1.jpg', 'Lenovo IdeaPad 3 - front', 1),
 (2, 2, '/img/products/phn-001-1.jpg', 'Samsung Galaxy A54\r\n', 1),
-(3, 3, '/img/products/phn-002-1.jpg', 'Apple iPhone 16\r\n', 1);
+(3, 3, '/img/products/phn-002-1.jpg', 'Apple iPhone 16\r\n', 1),
+(4, 1, '/img/products/lap-001-2.jpg', 'Lenovo IdeaPad 3 - side view', 2),
+(5, 1, '/img/products/lap-001-3.jpg', 'Lenovo IdeaPad 3 - side view', 3),
+(6, 1, '/img/products/lap-001-4.jpg', 'Lenovo IdeaPad 3 - side view', 4),
+(7, 1, '/img/products/lap-001-5.jpg', 'Lenovo IdeaPad 3 - back view', 5),
+(8, 1, '/img/products/lap-001-6.jpg', 'Lenovo IdeaPad 3 - closed back view', 6),
+(9, 1, '/img/products/lap-001-7.jpg', 'Lenovo IdeaPad 3 - laid down view', 7),
+(10, 4, '/img/products/USR-1D24EE80-1.jpg', 'qwerty', 1);
 
 -- --------------------------------------------------------
 
@@ -239,7 +255,7 @@ INSERT INTO `product_specs` (`id`, `product_id`, `spec_name`, `spec_value`) VALU
 (4, 1, 'Ekran', '15.6\" Full HD'),
 (5, 1, 'Waga', '1.65 kg'),
 (6, 1, 'Bateria', '36 Wh, do 6 godzin pracy'),
-(7, 2, 'Wyświetlacz', '6.4\" AMOLED'),
+(7, 2, 'Wyświetlacz', '6.7\" AMOLED'),
 (8, 2, 'RAM', '8 GB'),
 (9, 2, 'Pamięć wewnętrzna', '128 GB'),
 (10, 2, 'Bateria', '5000 mAh'),
@@ -390,7 +406,7 @@ ALTER TABLE `shopping_cart_items`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `customer_addresses`
@@ -420,7 +436,7 @@ ALTER TABLE `order_items`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `product_categories`
@@ -432,7 +448,7 @@ ALTER TABLE `product_categories`
 -- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `product_reviews`
