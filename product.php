@@ -42,8 +42,12 @@ $stmt_specs->bind_param("i", $id);
 $stmt_specs->execute();
 $specs = $stmt_specs->get_result();
 
-$sql_recommended = "SELECT p.id, p.title, p.price, pi.image_url FROM products p LEFT JOIN product_images pi ON p.id = pi.product_id AND pi.sort_order = 1
-WHERE p.id != ? ORDER BY RAND() LIMIT 4";
+$sql_recommended = "SELECT p.id, p.title, p.price, pi.image_url 
+FROM products p 
+LEFT JOIN product_images pi ON p.id = pi.product_id AND pi.sort_order = 1
+WHERE p.id != ? 
+ORDER BY RAND() 
+LIMIT 4";
 $stmt_recommended = $conn->prepare($sql_recommended);
 $stmt_recommended->bind_param("i", $id);
 $stmt_recommended->execute();
@@ -70,7 +74,7 @@ $recommended = $stmt_recommended->get_result();
             $images->data_seek(0);
             while ($row = $images->fetch_assoc()) {
                 $thumb = 'assets/img/products/' . basename($row['image_url']);
-                echo '<img src="' . $thumb . '" alt="' . htmlspecialchars($product['title']) . '" class="thumbnail" onclick="changeMainImage(\'' . $thumb . '\')">';
+                echo '<img src="' . $thumb . '" alt="' . htmlspecialchars($product['title']) . '" class="thumbnail">';
             }
             ?>
         </div>
@@ -114,7 +118,6 @@ $recommended = $stmt_recommended->get_result();
         <?php endif; ?>
     </div>
 </main>
-
 <?php if ($recommended && $recommended->num_rows > 0): ?>
     <section class="recommended-section">
         <div class="container">
@@ -144,6 +147,11 @@ $recommended = $stmt_recommended->get_result();
 <?php endif; ?>
 
 <script>
+    document.querySelectorAll('.thumbnail').forEach(img => {
+        img.addEventListener('click', () => {
+            document.getElementById('mainProductImage').src = img.src;
+        });
+    });
     <?php include __DIR__ . '/assets/app.js'; ?>
 </script>
 

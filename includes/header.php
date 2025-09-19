@@ -20,7 +20,7 @@
                 <ul>
                     <li><a href="index.php">Strona główna</a></li>
                     <li><a href="katalog.php">Katalog</a></li>
-                    <?php if (isset($_SESSION['user_id'])): ?>
+                    <?php if (isset($_SESSION['user_id']) && ($_SESSION['is_admin'] ?? false)): ?>
                         <li><a href="add_product.php">Dodaj produkt</a></li>
                     <?php endif; ?>
                 </ul>
